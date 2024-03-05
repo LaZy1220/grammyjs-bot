@@ -3,8 +3,22 @@ const { Bot, GrammyError, HttpError } = require("grammy");
 
 const bot = new Bot(process.env.BOT_API_KEY);
 
+bot.api.setMyCommands([
+  {
+    command: "start",
+    description: "Запуск бота",
+  },
+  {
+    command: "hello",
+    description: "Получить приветствие",
+  },
+]);
+
 bot.command("start", async (ctx) => {
   await ctx.reply("Привет Я - бот");
+});
+bot.command(["say_hello", "say_hi", "hello"], async (ctx) => {
+  await ctx.reply("Привет!");
 });
 
 bot.on("message", async (ctx) => {
